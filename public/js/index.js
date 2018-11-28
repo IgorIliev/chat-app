@@ -3,11 +3,6 @@ var socket = io();
 socket.on('connect', function () {
   console.log('povrzan na serverot');
 
-  socket.emit('createMessage', {
-    from: 'nekoj nov',
-    text: 'nekoja poraka'
-  });
-
 });
 
 socket.on('disconnect', function () {
@@ -15,5 +10,6 @@ socket.on('disconnect', function () {
 });
 
 socket.on('newMessage', function (message) {
-  console.log(`new mesage from ${message.from} : ${message.text}`);
+  console.log(`new mesage from: ${message.from}
+    createdAt:${message.createdAt} : ${message.text}`);
 });
