@@ -14,6 +14,22 @@ app.use(express.static(publicPath));
 io.on('connection', (socket) => {
   console.log('nov korisnik');
 
+      socket.emit('newMessage', {
+      from: "Admin",
+      text: "hello",
+      createdAt: new Date().getTime()
+    });
+
+    socket.broadcast.emit('newMessage', {
+    from: "Admin",
+    text: "new user",
+    createdAt: new Date().getTime()
+    });
+
+  socket.emit('hello');
+  socket.broadcast.emit('new user');
+
+
   socket.on('createMessage', (message) => {
     console.log(`createMessage from ${message.from}: ${message.text}`);
     io.emit('newMessage', {
