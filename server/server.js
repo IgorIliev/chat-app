@@ -23,9 +23,10 @@ io.on('connection', (socket) => {
   socket.broadcast.emit('new user');
 
 
-  socket.on('createMessage', (message) => {
+  socket.on('createMessage', (message, callback) => {
     console.log(`createMessage from ${message.from}: ${message.text}`);
     io.emit('newMessage', generateMessage(message.from, message.text));
+    callback('od serverot');
   });
 
   socket.on('disconnect', () => {
