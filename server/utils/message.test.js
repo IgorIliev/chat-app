@@ -20,7 +20,7 @@ describe('generateLocationMessage', () =>{
       var from = 'nekojsi';
       var latitude = 1;
       var longitude = 1;
-      var message = generateLocationMessage(from, latitude, longitude)
+      var message = generateLocationMessage(from, latitude, longitude);
 
       expect(message.createdAt).toBeA('number');
       expect(message.from).toBe('nekojsi');
