@@ -14,15 +14,33 @@ function scrollToBottom () {
   if (clientHeight + scrollTop + newMessageHeight + lastMessageHeight >= scrollHeight) {
     messages.scrollTop(scrollHeight);
   };
-  console.log(`${clientHeight} ${scrollTop} ${newMessageHeight} ${lastMessageHeight} ${scrollHeight}`);
 }
 
 socket.on('connect', function () {
-  console.log('povrzan na serverot');
+  var params = jQuery.deparam(window.location.search);
+
+  socket.emit('join', params, function (err){
+    if(err){
+      alert(err);
+      window.location.href = '/';
+    } else {
+      console.log('no err');
+    }
+  });
 });
 
 socket.on('disconnect', function () {
   console.log('nepovrzan na serverot');
+});
+
+socket.on('updateUserList', function (users) {
+  var ol = jQuery('<ol></ol');
+
+  users.forEach(function (user) {
+    ol.append(jQuery('<li></li>').text(user));
+  });
+
+  jQuery('#users').html(ol);
 });
 
 socket.on('newMessage', function (message) {
